@@ -1,7 +1,7 @@
 package com.parth.pixabay.fetchimage.repo;
 
-import com.parth.pixabay.fetchimage.ui.ImageModel;
 import com.parth.pixabay.fetchimage.api.PixabayImageApi;
+import com.parth.pixabay.fetchimage.ui.ImageModel;
 
 import java.util.List;
 
@@ -12,6 +12,7 @@ import rx.Observable;
  */
 public class PixabayImageRepo {
 
+    private static final String PIXABAY_API_KEY = "3777143-215b646e4ad11d4f2e8d5fa6a";
     private PixabayImageApi api;
 
     public PixabayImageRepo(PixabayImageApi api) {
@@ -19,6 +20,6 @@ public class PixabayImageRepo {
     }
 
     public Observable<List<ImageModel>> getImages(String query) {
-        return api.getImages("", query).map(ImageModelMapper::map);
+        return api.getImages(PIXABAY_API_KEY, query).map(ImageModelMapper::map);
     }
 }

@@ -8,20 +8,20 @@ import com.parth.pixabay.network.NetworkModule;
 /**
  * Created by parth on 11/16/16.
  */
-public class MyApplication extends Application {
+public class MainApplication extends Application {
 
-    private static MyApplication instance;
-    private MyApplicationComponent mainApplicationComponent;
+    private static MainApplication instance;
+    private MainApplicationComponent mainApplicationComponent;
 
-    public MyApplication() {
+    public MainApplication() {
         instance = this;
     }
 
-    public static MyApplication getInstance() {
+    public static MainApplication getInstance() {
         return instance;
     }
 
-    public MyApplicationComponent getMainApplicationComponent() {
+    public MainApplicationComponent getMainApplicationComponent() {
         return mainApplicationComponent;
     }
 
@@ -31,8 +31,8 @@ public class MyApplication extends Application {
         mainApplicationComponent = prepareApplicationComponent();
     }
 
-    private MyApplicationComponent prepareApplicationComponent() {
-        return DaggerMyApplicationComponent.builder().networkModule(new NetworkModule()).
+    private MainApplicationComponent prepareApplicationComponent() {
+        return DaggerMainApplicationComponent.builder().networkModule(new NetworkModule()).
                 pixabayImageModule(new PixabayImageModule()).build();
     }
 }

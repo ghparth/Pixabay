@@ -12,7 +12,6 @@ import java.util.List;
 public class ImageModelMapper {
 
     public static List<ImageModel> map(PixabayServerResponse pixabayServerResponse) {
-
         return Collections.emptyList();
     }
 }

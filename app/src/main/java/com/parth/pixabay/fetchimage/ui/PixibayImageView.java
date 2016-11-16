@@ -9,4 +9,7 @@ public interface PixibayImageView {
 
     void refreshList(List<ImageModel> data);
 
+    void openImage(String imageUrl);
+
+    void showErrorMessage(String message);
 }

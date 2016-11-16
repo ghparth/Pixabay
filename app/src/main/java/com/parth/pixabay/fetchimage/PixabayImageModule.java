@@ -25,4 +25,9 @@ public class PixabayImageModule {
     PixabayImageRepo providePixabayImageRepo(PixabayImageApi api) {
         return new PixabayImageRepo(api);
     }
+
+    @Provides
+    ImageListPresenter provideImageListPresenter(PixabayImageRepo repo) {
+        return new ImageListPresenter(repo);
+    }
 }

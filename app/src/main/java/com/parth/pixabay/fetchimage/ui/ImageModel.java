@@ -11,4 +11,11 @@ public class ImageModel implements Serializable {
     private String previewUrl;
     private String url;
 
+    public String getPreviewUrl() {
+        return previewUrl;
+    }
+
+    public String getUrl() {
+        return url;
+    }
 }

@@ -1,6 +1,7 @@
 package com.parth.pixabay.fetchimage;
 
 import com.parth.pixabay.fetchimage.repo.PixabayImageRepo;
+import com.parth.pixabay.fetchimage.ui.ImageModel;
 import com.parth.pixabay.fetchimage.ui.PixibayImageView;
 
 import rx.android.schedulers.AndroidSchedulers;
@@ -24,11 +25,17 @@ public class ImageListPresenter {
     }
 
     public void onSearchTriggered(String query) {
-        repo.getImages(query).observeOn(Schedulers.io()).
-                subscribeOn(AndroidSchedulers.mainThread()).
+        repo.getImages(query).subscribeOn(Schedulers.io()).
+                observeOn(AndroidSchedulers.mainThread()).
                 subscribe(imageModels -> {
                     view.refreshList(imageModels);
+                }, throwable -> {
+                    view.showErrorMessage(throwable.getMessage());
                 });
+    }
+
+    public void onListItemClick(ImageModel model) {
+        view.openImage(model.getUrl());
     }
 
 }
