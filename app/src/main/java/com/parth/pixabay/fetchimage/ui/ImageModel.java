@@ -7,9 +7,15 @@ import java.io.Serializable;
  */
 public class ImageModel implements Serializable {
 
-    private String id;
+    private int id;
     private String previewUrl;
     private String url;
+
+    public ImageModel(int id, String previewUrl, String url) {
+        this.id = id;
+        this.previewUrl = previewUrl;
+        this.url = url;
+    }
 
     public String getPreviewUrl() {
         return previewUrl;

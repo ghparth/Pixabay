@@ -39,6 +39,9 @@ public class ListAdapter extends RecyclerView.Adapter<ImageViewHolder> {
         ImageModel model = data.get(position);
         MyImageLoader imageLoader = MainApplication.getInstance().getMainApplicationComponent().getImageLoader();
         imageLoader.loadImage(holder.imageView, model.getPreviewUrl());
+        holder.itemView.setOnClickListener(view -> {
+            listener.onChildViewClicked(ChildClickListener.IMAGE_CLICKED, view, model);
+        });
     }
 
     @Override

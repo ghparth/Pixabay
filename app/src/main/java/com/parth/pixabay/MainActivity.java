@@ -69,7 +69,7 @@ public class MainActivity extends AppCompatActivity implements PixibayImageView,
     public void openImage(String imageUrl) {
         Dialog dialog = new Dialog(this, android.R.style.Theme_Black_NoTitleBar_Fullscreen);
         dialog.setContentView(R.layout.fs_dialog);
-        ImageView image = (ImageView) dialog.findViewById(R.id.image);
+        ImageView image = (ImageView) dialog.findViewById(R.id.image_view);
         MyImageLoader imageLoader = MainApplication.getInstance().getMainApplicationComponent()
                 .getImageLoader();
         imageLoader.loadImage(image, imageUrl);
