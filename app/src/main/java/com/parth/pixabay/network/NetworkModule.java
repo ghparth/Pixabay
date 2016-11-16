@@ -19,6 +19,9 @@ import retrofit2.Retrofit;
 import retrofit2.adapter.rxjava.RxJavaCallAdapterFactory;
 import retrofit2.converter.gson.GsonConverterFactory;
 
+/**
+ * Created by parth on 11/16/16.
+ */
 @Module
 public class NetworkModule {
 
@@ -77,7 +80,7 @@ public class NetworkModule {
     private Retrofit.Builder buildRetrofit(OkHttpClient client, Gson gson, String endpoint) {
         return new Retrofit.Builder().baseUrl(endpoint).client(client)
                 .addConverterFactory(GsonConverterFactory.create(gson))
-                .addCallAdapterFactory(RxJavaCallAdapterFactory.create()); // Fail early
+                .addCallAdapterFactory(RxJavaCallAdapterFactory.create());
     }
 
 

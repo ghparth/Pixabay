@@ -1,5 +1,8 @@
 package com.parth.pixabay.fetchimage;
 
+import com.parth.pixabay.fetchimage.api.PixabayImageApi;
+import com.parth.pixabay.fetchimage.repo.PixabayImageRepo;
+
 import javax.inject.Singleton;
 
 import dagger.Module;
@@ -16,5 +19,10 @@ public class PixabayImageModule {
     @Singleton
     PixabayImageApi providePixabayImageApi(Retrofit retrofit) {
         return retrofit.create(PixabayImageApi.class);
+    }
+
+    @Provides
+    PixabayImageRepo providePixabayImageRepo(PixabayImageApi api) {
+        return new PixabayImageRepo(api);
     }
 }

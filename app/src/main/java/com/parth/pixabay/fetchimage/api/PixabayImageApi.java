@@ -1,4 +1,4 @@
-package com.parth.pixabay.fetchimage;
+package com.parth.pixabay.fetchimage.api;
 
 import retrofit2.http.GET;
 import retrofit2.http.Query;
@@ -11,6 +11,5 @@ public interface PixabayImageApi {
 
     @GET("/api")
     Observable<PixabayServerResponse> getImages(@Query("key") String key, @Query("q") String query);
-
 
 }
