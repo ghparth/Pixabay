@@ -5,7 +5,6 @@ import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
-import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
@@ -13,9 +12,9 @@ import android.widget.ImageView;
 import android.widget.Toast;
 
 import com.parth.pixabay.fetchimage.ImageListPresenter;
+import com.parth.pixabay.fetchimage.PixibayImageView;
 import com.parth.pixabay.fetchimage.ui.ImageModel;
 import com.parth.pixabay.fetchimage.ui.ListAdapter;
-import com.parth.pixabay.fetchimage.ui.PixibayImageView;
 import com.parth.pixabay.utils.ChildClickListener;
 import com.parth.pixabay.utils.MyImageLoader;
 
@@ -26,8 +25,9 @@ import javax.inject.Inject;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
+import butterknife.Unbinder;
 
-public class MainActivity extends AppCompatActivity implements PixibayImageView, ChildClickListener<ImageModel> {
+public class MainActivity extends AppCompatActivity implements PixibayImageView, ChildClickListener<ImageModel>, ListAdapter.ListDS {
 
     @Inject
     ImageListPresenter presenter;
@@ -41,17 +41,24 @@ public class MainActivity extends AppCompatActivity implements PixibayImageView,
     @BindView(R.id.rv)
     RecyclerView recyclerView;
 
+    @BindView(R.id.next_page)
+    View nextPage;
+
+    private ListAdapter adapter;
+    private Unbinder unbinder;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
         View baseView = findViewById(R.id.activity_main);
         MainApplication.getInstance().getMainApplicationComponent().inject(this);
-        ButterKnife.bind(this, baseView);
+        unbinder = ButterKnife.bind(this, baseView);
         presenter.initView(this);
 
         recyclerView.setLayoutManager(new LinearLayoutManager(this));
-
+        adapter = new ListAdapter(this, this);
+        recyclerView.setAdapter(adapter);
     }
 
     @OnClick(R.id.submit)
@@ -59,10 +66,16 @@ public class MainActivity extends AppCompatActivity implements PixibayImageView,
         presenter.onSearchTriggered(searchText.getText().toString());
     }
 
+    @OnClick(R.id.next_page)
+    void onNextClicked() {
+        presenter.onRequestNextPage();
+    }
+
     @Override
-    public void refreshList(List<ImageModel> data) {
-        Log.d("RefreshList", data.toString());
-        recyclerView.setAdapter(new ListAdapter(data, this));
+    public void refreshList() {
+        if (adapter != null) {
+            adapter.notifyDataSetChanged();
+        }
     }
 
     @Override
@@ -88,5 +101,21 @@ public class MainActivity extends AppCompatActivity implements PixibayImageView,
                 presenter.onListItemClick(model);
                 break;
         }
+    }
+
+    @Override
+    protected void onDestroy() {
+        super.onDestroy();
+        if (presenter != null) {
+            presenter.onDestroy();
+        }
+        if (unbinder != null) {
+            unbinder.unbind();
+        }
+    }
+
+    @Override
+    public List<ImageModel> getData() {
+        return presenter.getData();
     }
 }

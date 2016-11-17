@@ -18,11 +18,11 @@ import java.util.List;
 
 public class ListAdapter extends RecyclerView.Adapter<ImageViewHolder> {
 
-    private List<ImageModel> data;
+    private ListDS dataProvider;
     private ChildClickListener<ImageModel> listener;
 
-    public ListAdapter(List<ImageModel> data, ChildClickListener listener) {
-        this.data = data;
+    public ListAdapter(ListDS dataProvider, ChildClickListener listener) {
+        this.dataProvider = dataProvider;
         this.listener = listener;
     }
 
@@ -36,7 +36,7 @@ public class ListAdapter extends RecyclerView.Adapter<ImageViewHolder> {
 
     @Override
     public void onBindViewHolder(ImageViewHolder holder, int position) {
-        ImageModel model = data.get(position);
+        ImageModel model = dataProvider.getData().get(position);
         MyImageLoader imageLoader = MainApplication.getInstance().getMainApplicationComponent().getImageLoader();
         imageLoader.loadImage(holder.imageView, model.getPreviewUrl());
         holder.itemView.setOnClickListener(view -> {
@@ -46,6 +46,12 @@ public class ListAdapter extends RecyclerView.Adapter<ImageViewHolder> {
 
     @Override
     public int getItemCount() {
-        return data.size();
+        int size = dataProvider.getData().size();
+        return size;
+    }
+
+
+    public interface ListDS {
+        List<ImageModel> getData();
     }
 }

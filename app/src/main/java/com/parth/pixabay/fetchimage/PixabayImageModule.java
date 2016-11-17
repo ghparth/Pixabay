@@ -27,6 +27,7 @@ public class PixabayImageModule {
     }
 
     @Provides
+    @Singleton
     ImageListPresenter provideImageListPresenter(PixabayImageRepo repo) {
         return new ImageListPresenter(repo);
     }
