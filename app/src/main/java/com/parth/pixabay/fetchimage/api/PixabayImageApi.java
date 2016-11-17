@@ -10,6 +10,7 @@ import rx.Observable;
 public interface PixabayImageApi {
 
     @GET("/api")
-    Observable<PixabayServerResponse> getImages(@Query("key") String key, @Query("q") String query, @Query("page") int pageNo);
+    Observable<PixabayServerResponse> getImages(@Query("key") String key, @Query("q") String query,
+                                                @Query("page") int pageNo, @Query("per_page") int pageSize);
 
 }

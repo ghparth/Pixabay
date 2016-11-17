@@ -11,4 +11,5 @@ public interface PixibayImageView {
 
     void showErrorMessage(String message);
 
+    void setPaginationSupport(boolean enabled);
 }

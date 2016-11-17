@@ -8,9 +8,14 @@ import java.util.List;
  */
 public class PixabayServerResponse implements Serializable{
 
+    private int totalHits;
     private List<ServerImageModel> hits;
 
     public List<ServerImageModel> getHits() {
         return hits;
+    }
+
+    public int getTotalHits() {
+        return totalHits;
     }
 }

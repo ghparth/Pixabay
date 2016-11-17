@@ -95,6 +95,11 @@ public class MainActivity extends AppCompatActivity implements PixibayImageView,
     }
 
     @Override
+    public void setPaginationSupport(boolean visibility) {
+        nextPage.setVisibility(visibility ? View.VISIBLE : View.GONE);
+    }
+
+    @Override
     public void onChildViewClicked(int id, View v, ImageModel model) {
         switch (id) {
             case ChildClickListener.IMAGE_CLICKED:
