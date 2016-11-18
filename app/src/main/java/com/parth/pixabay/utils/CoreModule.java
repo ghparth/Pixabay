@@ -23,6 +23,7 @@ public class CoreModule {
     }
 
     @Provides
+    @Singleton
     public MyImageLoader getImageLoader(Picasso picasso) {
         return new MyImageLoader(picasso);
     }

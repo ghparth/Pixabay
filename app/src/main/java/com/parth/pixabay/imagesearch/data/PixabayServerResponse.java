@@ -1,4 +1,4 @@
-package com.parth.pixabay.fetchimage.api;
+package com.parth.pixabay.imagesearch.data;
 
 import java.io.Serializable;
 import java.util.List;
@@ -17,5 +17,13 @@ public class PixabayServerResponse implements Serializable{
 
     public int getTotalHits() {
         return totalHits;
+    }
+
+    @Override
+    public String toString() {
+        return "PixabayServerResponse{" +
+                "totalHits=" + totalHits +
+                ", hits=" + hits +
+                '}';
     }
 }

@@ -1,7 +1,8 @@
-package com.parth.pixabay.fetchimage;
+package com.parth.pixabay.imagesearch;
 
-import com.parth.pixabay.fetchimage.api.PixabayImageApi;
-import com.parth.pixabay.fetchimage.repo.PixabayImageRepo;
+import com.parth.pixabay.imagesearch.data.PixabayImageApi;
+import com.parth.pixabay.imagesearch.data.PixabayImageRepo;
+import com.parth.pixabay.imagesearch.ui.ImageListPresenter;
 
 import javax.inject.Singleton;
 
@@ -22,12 +23,12 @@ public class PixabayImageModule {
     }
 
     @Provides
+    @Singleton
     PixabayImageRepo providePixabayImageRepo(PixabayImageApi api) {
         return new PixabayImageRepo(api);
     }
 
     @Provides
-    @Singleton
     ImageListPresenter provideImageListPresenter(PixabayImageRepo repo) {
         return new ImageListPresenter(repo);
     }

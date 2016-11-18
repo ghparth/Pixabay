@@ -2,7 +2,7 @@ package com.parth.pixabay;
 
 import android.app.Application;
 
-import com.parth.pixabay.fetchimage.PixabayImageModule;
+import com.parth.pixabay.imagesearch.PixabayImageModule;
 import com.parth.pixabay.network.NetworkModule;
 
 /**

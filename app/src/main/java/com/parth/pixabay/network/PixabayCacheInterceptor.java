@@ -16,7 +16,7 @@ public class PixabayCacheInterceptor implements Interceptor {
     @Override
     public Response intercept(Chain chain) throws IOException {
         Request request = chain.request();
-        CacheControl cacheControl = new CacheControl.Builder().maxAge(1, TimeUnit.DAYS)
+        CacheControl cacheControl = new CacheControl.Builder().maxAge(7, TimeUnit.DAYS)
                 .maxStale(1, TimeUnit.DAYS).build();
         request = request.newBuilder().header("Cache-Control", cacheControl.toString()).build();
         return chain.proceed(request);

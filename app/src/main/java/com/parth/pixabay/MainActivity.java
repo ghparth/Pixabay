@@ -5,16 +5,16 @@ import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.Toast;
 
-import com.parth.pixabay.fetchimage.ImageListPresenter;
-import com.parth.pixabay.fetchimage.PixibayImageView;
-import com.parth.pixabay.fetchimage.ui.ImageModel;
-import com.parth.pixabay.fetchimage.ui.ListAdapter;
+import com.parth.pixabay.imagesearch.ui.ImageListPresenter;
+import com.parth.pixabay.imagesearch.ui.ImageModel;
+import com.parth.pixabay.imagesearch.ui.ListAdapter;
 import com.parth.pixabay.utils.ChildClickListener;
 import com.parth.pixabay.utils.MyImageLoader;
 
@@ -27,7 +27,7 @@ import butterknife.ButterKnife;
 import butterknife.OnClick;
 import butterknife.Unbinder;
 
-public class MainActivity extends AppCompatActivity implements PixibayImageView, ChildClickListener<ImageModel>, ListAdapter.ListDS {
+public class MainActivity extends AppCompatActivity implements ImageListPresenter.PixibayImageView, ChildClickListener<ImageModel>, ListAdapter.ListDataProvider {
 
     @Inject
     ImageListPresenter presenter;
@@ -63,6 +63,7 @@ public class MainActivity extends AppCompatActivity implements PixibayImageView,
 
     @OnClick(R.id.submit)
     void onSubmitClicked() {
+        Log.d("Activity", "Search clicked");
         presenter.onSearchTriggered(searchText.getText().toString());
     }
 
@@ -96,6 +97,7 @@ public class MainActivity extends AppCompatActivity implements PixibayImageView,
 
     @Override
     public void setPaginationSupport(boolean visibility) {
+        Log.d("Activity", "Pagination : " + visibility);
         nextPage.setVisibility(visibility ? View.VISIBLE : View.GONE);
     }
 

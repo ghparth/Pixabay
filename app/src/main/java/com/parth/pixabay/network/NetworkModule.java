@@ -28,35 +28,20 @@ import retrofit2.converter.gson.GsonConverterFactory;
 @Module
 public class NetworkModule {
 
+    public static final String PIXABAY_BASE_URL = "https://pixabay.com";
+    public static final int CACHE_SIZE = 10 * 1024 * 1024;
+
     @Provides
     @NonNull
-    public Gson provideGson() {
+    Gson provideGson() {
         return new Gson();
-    }
-
-    @Provides
-    @NonNull
-    public OkHttpClient provideOkHttpClient(
-            @OkHttpInterceptors @NonNull List<Interceptor> interceptors,
-            @OkHttpNetworkInterceptors @NonNull List<Interceptor> networkInterceptors) {
-        final OkHttpClient.Builder okHttpBuilder = new OkHttpClient.Builder();
-
-        for (Interceptor interceptor : interceptors) {
-            okHttpBuilder.addInterceptor(interceptor);
-        }
-
-        for (Interceptor networkInterceptor : networkInterceptors) {
-            okHttpBuilder.addNetworkInterceptor(networkInterceptor);
-        }
-
-        return okHttpBuilder.build();
     }
 
     @Provides
     @OkHttpInterceptors
     @Singleton
     @NonNull
-    public List<Interceptor> provideOkHttpInterceptors() {
+    List<Interceptor> provideOkHttpInterceptors() {
         HttpLoggingInterceptor httpLoggingInterceptor = new HttpLoggingInterceptor(
                 message -> Log.d("NetworkRequest", message))
                 .setLevel(HttpLoggingInterceptor.Level.BASIC);
@@ -67,10 +52,10 @@ public class NetworkModule {
     @OkHttpNetworkInterceptors
     @Singleton
     @NonNull
-    public List<Interceptor> provideOkHttpNetworkInterceptors() {
+    List<Interceptor> provideOkHttpNetworkInterceptors() {
         HttpLoggingInterceptor httpLoggingInterceptor = new HttpLoggingInterceptor(
                 message -> Log.d("NetworkCall", message))
-                .setLevel(HttpLoggingInterceptor.Level.BASIC);
+                .setLevel(HttpLoggingInterceptor.Level.BODY);
         return Collections.singletonList(httpLoggingInterceptor);
     }
 
@@ -80,7 +65,7 @@ public class NetworkModule {
     Retrofit providePixaBayRetrofit(Gson gson, @OkHttpInterceptors @NonNull List<Interceptor> interceptors,
                                     @OkHttpNetworkInterceptors @NonNull List<Interceptor> networkInterceptors) {
         OkHttpClient client = getPixabayOkHttpClient(interceptors, networkInterceptors);
-        return buildRetrofit(client, gson, "https://pixabay.com").build();
+        return buildRetrofit(client, gson, PIXABAY_BASE_URL).build();
     }
 
     @NonNull
@@ -94,7 +79,7 @@ public class NetworkModule {
         }
         okHttpBuilder.addInterceptor(new PixabayCacheInterceptor());
         File cacheDir = MainApplication.getInstance().getCacheDir();
-        okHttpBuilder.cache(new Cache(cacheDir, 10 * 1024 * 1024)); // 10 MB
+        okHttpBuilder.cache(new Cache(cacheDir, CACHE_SIZE));
         return okHttpBuilder.build();
     }
 

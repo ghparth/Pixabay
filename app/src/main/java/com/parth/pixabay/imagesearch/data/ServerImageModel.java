@@ -1,4 +1,4 @@
-package com.parth.pixabay.fetchimage.api;
+package com.parth.pixabay.imagesearch.data;
 
 import java.io.Serializable;
 
@@ -21,5 +21,14 @@ public class ServerImageModel implements Serializable {
 
     public String getWebImageURL() {
         return webformatURL;
+    }
+
+    @Override
+    public String toString() {
+        return "ServerImageModel{" +
+                "id=" + id +
+                ", webformatURL='" + webformatURL + '\'' +
+                ", previewURL='" + previewURL + '\'' +
+                '}';
     }
 }

@@ -1,4 +1,4 @@
-package com.parth.pixabay.fetchimage.api;
+package com.parth.pixabay.imagesearch.data;
 
 import retrofit2.http.GET;
 import retrofit2.http.Query;

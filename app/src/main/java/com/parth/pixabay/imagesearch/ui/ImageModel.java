@@ -1,4 +1,4 @@
-package com.parth.pixabay.fetchimage.ui;
+package com.parth.pixabay.imagesearch.ui;
 
 import java.io.Serializable;
 
@@ -23,5 +23,14 @@ public class ImageModel implements Serializable {
 
     public String getUrl() {
         return url;
+    }
+
+    @Override
+    public String toString() {
+        return "ImageModel{" +
+                "id=" + id +
+                ", previewUrl='" + previewUrl + '\'' +
+                ", url='" + url + '\'' +
+                '}';
     }
 }

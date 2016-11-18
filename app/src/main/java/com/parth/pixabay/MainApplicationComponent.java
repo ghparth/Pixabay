@@ -1,7 +1,7 @@
 package com.parth.pixabay;
 
 
-import com.parth.pixabay.fetchimage.PixabayImageModule;
+import com.parth.pixabay.imagesearch.PixabayImageModule;
 import com.parth.pixabay.network.NetworkModule;
 import com.parth.pixabay.utils.CoreModule;
 import com.parth.pixabay.utils.MyImageLoader;

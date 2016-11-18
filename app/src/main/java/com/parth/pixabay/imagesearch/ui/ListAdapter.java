@@ -1,9 +1,10 @@
-package com.parth.pixabay.fetchimage.ui;
+package com.parth.pixabay.imagesearch.ui;
 
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ImageView;
 
 import com.parth.pixabay.MainApplication;
 import com.parth.pixabay.R;
@@ -12,23 +13,26 @@ import com.parth.pixabay.utils.MyImageLoader;
 
 import java.util.List;
 
+import butterknife.BindView;
+import butterknife.ButterKnife;
+
 /**
  * Created by parth on 11/16/16.
  */
 
-public class ListAdapter extends RecyclerView.Adapter<ImageViewHolder> {
+public class ListAdapter extends RecyclerView.Adapter<ListAdapter.ImageViewHolder> {
 
-    private ListDS dataProvider;
+    private ListDataProvider dataProvider;
     private ChildClickListener<ImageModel> listener;
 
-    public ListAdapter(ListDS dataProvider, ChildClickListener listener) {
+    public ListAdapter(ListDataProvider dataProvider, ChildClickListener listener) {
         this.dataProvider = dataProvider;
         this.listener = listener;
     }
 
 
     @Override
-    public ImageViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
+    public ListAdapter.ImageViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
         View view = LayoutInflater.from(parent.getContext()).
                 inflate(R.layout.list_item, parent, false);
         return new ImageViewHolder(view);
@@ -51,7 +55,19 @@ public class ListAdapter extends RecyclerView.Adapter<ImageViewHolder> {
     }
 
 
-    public interface ListDS {
+    public interface ListDataProvider {
         List<ImageModel> getData();
     }
+
+    static class ImageViewHolder extends RecyclerView.ViewHolder {
+
+        @BindView(R.id.image_view)
+        ImageView imageView;
+
+        ImageViewHolder(View itemView) {
+            super(itemView);
+            ButterKnife.bind(this, itemView);
+        }
+    }
+
 }
