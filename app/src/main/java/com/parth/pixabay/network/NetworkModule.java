@@ -55,7 +55,7 @@ public class NetworkModule {
     List<Interceptor> provideOkHttpNetworkInterceptors() {
         HttpLoggingInterceptor httpLoggingInterceptor = new HttpLoggingInterceptor(
                 message -> Log.d("NetworkCall", message))
-                .setLevel(HttpLoggingInterceptor.Level.BODY);
+                .setLevel(HttpLoggingInterceptor.Level.BASIC);
         return Collections.singletonList(httpLoggingInterceptor);
     }
 
